@@ -1,2 +1,2 @@
-#ulbitv fundamental react# ulbi_fundamental_react
+#ulbitv fundamental react
 #start 15/03/2023
