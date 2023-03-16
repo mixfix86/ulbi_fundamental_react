@@ -1,15 +1,13 @@
-import { useState } from 'react';
-import { Counter } from './components/Counter';
+import './App.css'
+import { PostItem } from './components/PostItem/PostItem';
 
 export const App = () => {
-  const [value, setValue] = useState('')
+
 
   return (
-    <div>
-      <h1>{value}</h1>
-      <input type="text" name="input" onChange={(e) => setValue(e.target.value)} value={value} />
-      <Counter />
-    </div>
+    <div className='App'>
+      <PostItem post={{id: 1, title: 'JS', body: 'JS - programming language'}}/>
+    </div >
   );
 }
 
