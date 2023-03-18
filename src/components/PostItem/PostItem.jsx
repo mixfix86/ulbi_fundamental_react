@@ -1,14 +1,14 @@
 import React from 'react';
 import styles from './PostItem.module.css';
 
-export const PostItem = ({ post }) => {
+export const PostItem = ({ post, number }) => {
 
-  const {id, title, body} = post
+  const {title, body} = post
 
   return (
     <div className={styles.post}>
       <div className={styles.post__content}>
-        <strong>{id}. {title}</strong>
+        <strong>{number}. {title}</strong>
         <div>{body}</div>
       </div>
       <div className={styles.post__btns}>
