@@ -14,7 +14,7 @@ export const PostItem = ({ post, number, remove }) => {
         <div>{body}</div>
       </div>
       <div className={styles.post__btns}>
-        <MyButton onClick={() => remove(post)}>Delete</MyButton>
+        <MyButton onClick={() => remove(post)}>Удалить</MyButton>
       </div>
     </div>
   );

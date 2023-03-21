@@ -5,6 +5,8 @@ import { PostForm } from './components/PostForm/PostForm';
 
 import './App.css';
 import { PostFilter } from './components/PostFilter/PostFilter';
+import { MyModal } from './components/MyModal/MyModal';
+import { MyButton } from './components/UI/button/MyButton';
 
 export const App = () => {
   const [posts, setPosts] = useState([
@@ -15,6 +17,7 @@ export const App = () => {
   ]);
 
   const [filter, setFilter] = useState({ query: '', sort: '' });
+  const [modalVisible, setModalVisible] = useState(false);
 
   const sortedPosts = useMemo(() => {
     if (filter.sort) {
@@ -33,6 +36,7 @@ export const App = () => {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
+    setModalVisible(false)
   };
 
   const deletePost = (post) => {
@@ -41,20 +45,25 @@ export const App = () => {
 
   return (
     <div className='App'>
-      <PostForm create={createPost} />
+      <MyButton
+        style={{ marginTop: '15px' }}
+        onClick={() => setModalVisible(true)}
+      >
+        Добавить пост
+      </MyButton>
+      <MyModal modalVisible={modalVisible} setModalVisible={setModalVisible}>
+        <PostForm create={createPost} />
+      </MyModal>
+
       <div>
         <hr style={{ margin: '15px 0' }} />
         <PostFilter filter={filter} setFilter={setFilter} />
       </div>
-      {sortedAndSearchPosts.length !== 0 ? (
-        <PostList
-          remove={deletePost}
-          posts={sortedAndSearchPosts}
-          title='Post list'
-        />
-      ) : (
-        <h1>Posts not found</h1>
-      )}
+      <PostList
+        remove={deletePost}
+        posts={sortedAndSearchPosts}
+        title='Список постов'
+      />
     </div>
   );
 };
