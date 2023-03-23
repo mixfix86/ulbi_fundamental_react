@@ -7,7 +7,7 @@ import "./App.css";
 import { PostFilter } from "./components/PostFilter/PostFilter";
 import { MyModal } from "./components/MyModal/MyModal";
 import { MyButton } from "./components/UI/button/MyButton";
-import { usePosts, useSortedposts } from "./hooks/usePosts";
+import { usePosts } from "./hooks/usePosts";
 
 export const App = () => {
   const [posts, setPosts] = useState([
