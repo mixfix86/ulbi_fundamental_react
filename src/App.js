@@ -10,12 +10,16 @@ import PostService from "./API/PostService";
 
 import "./App.css";
 import { Loader } from "./components/UI/Loader/Loader";
+import { useFetching } from "./hooks/useFetching";
 
 export const App = () => {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ query: "", sort: "" });
   const [modalVisible, setModalVisible] = useState(false);
-  const [isPostsLoading, setIsPostsLoading] = useState(true);
+  const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
+    const postsGet = await PostService.getAll();
+    setPosts(postsGet);
+  });
 
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -34,12 +38,6 @@ export const App = () => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
-  async function fetchPosts() {
-    const postsGet = await PostService.getAll();
-    setPosts(postsGet);
-    setIsPostsLoading(false);
-  }
-
   return (
     <div className="App">
       <MyButton
@@ -56,6 +54,7 @@ export const App = () => {
         <hr style={{ margin: "15px 0" }} />
         <PostFilter filter={filter} setFilter={setFilter} />
       </div>
+      {postError ?? <h1>Что-то пошло не так...</h1>}
       {isPostsLoading ? (
         <div
           style={{
