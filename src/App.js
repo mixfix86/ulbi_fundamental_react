@@ -3,18 +3,19 @@ import { useState } from "react";
 import { PostList } from "./components/PostList/PostList";
 import { PostForm } from "./components/PostForm/PostForm";
 import { PostFilter } from "./components/PostFilter/PostFilter";
-import { MyModal } from "./components/MyModal/MyModal";
+import { MyModal } from "./components/UI/MyModal/MyModal";
 import { MyButton } from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
 import PostService from "./API/PostService";
 
 import "./App.css";
+import { Loader } from "./components/UI/Loader/Loader";
 
 export const App = () => {
   const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ query: "", sort: "" });
   const [modalVisible, setModalVisible] = useState(false);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [isPostsLoading, setIsPostsLoading] = useState(true);
 
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
 
@@ -34,7 +35,6 @@ export const App = () => {
   };
 
   async function fetchPosts() {
-    setIsPostsLoading(true);
     const postsGet = await PostService.getAll();
     setPosts(postsGet);
     setIsPostsLoading(false);
@@ -57,7 +57,15 @@ export const App = () => {
         <PostFilter filter={filter} setFilter={setFilter} />
       </div>
       {isPostsLoading ? (
-        <h1>Загрузка...</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            marginTop: "50px",
+          }}
+        >
+          <Loader />
+        </div>
       ) : (
         <PostList
           remove={deletePost}

@@ -3,8 +3,6 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 import { PostItem } from "../PostItem/PostItem";
 
 export const PostList = ({ posts, title, remove }) => {
-  console.log('111')
-
   if (!posts.length) {
     return <h1>Посты не найдены!</h1>;
   }
