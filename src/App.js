@@ -1,35 +1,44 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { PostList } from "./components/PostList/PostList";
 import { PostForm } from "./components/PostForm/PostForm";
-
-import "./App.css";
 import { PostFilter } from "./components/PostFilter/PostFilter";
 import { MyModal } from "./components/MyModal/MyModal";
 import { MyButton } from "./components/UI/button/MyButton";
 import { usePosts } from "./hooks/usePosts";
+import PostService from "./API/PostService";
+
+import "./App.css";
 
 export const App = () => {
-  const [posts, setPosts] = useState([
-    { id: 1, title: "JS", body: "JS - programming language" },
-    { id: 2, title: "C", body: "C - programming language" },
-    { id: 3, title: "C#", body: "C# - programming language" },
-    { id: 4, title: "JAVA", body: "JAVA - programming language" },
-  ]);
-
+  const [posts, setPosts] = useState([]);
   const [filter, setFilter] = useState({ query: "", sort: "" });
   const [modalVisible, setModalVisible] = useState(false);
+  const [isPostsLoading, setIsPostsLoading] = useState(false);
 
   const sortedAndSearchPosts = usePosts(posts, filter.sort, filter.query);
 
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   const createPost = (newPost) => {
+    // @ts-ignore
     setPosts([...posts, newPost]);
     setModalVisible(false);
   };
 
   const deletePost = (post) => {
+    // @ts-ignore
     setPosts(posts.filter((p) => p.id !== post.id));
   };
+
+  async function fetchPosts() {
+    setIsPostsLoading(true);
+    const postsGet = await PostService.getAll();
+    setPosts(postsGet);
+    setIsPostsLoading(false);
+  }
 
   return (
     <div className="App">
@@ -47,11 +56,15 @@ export const App = () => {
         <hr style={{ margin: "15px 0" }} />
         <PostFilter filter={filter} setFilter={setFilter} />
       </div>
-      <PostList
-        remove={deletePost}
-        posts={sortedAndSearchPosts}
-        title="Список постов"
-      />
+      {isPostsLoading ? (
+        <h1>Загрузка...</h1>
+      ) : (
+        <PostList
+          remove={deletePost}
+          posts={sortedAndSearchPosts}
+          title="Список постов"
+        />
+      )}
     </div>
   );
 };
