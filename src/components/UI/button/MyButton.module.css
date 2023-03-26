@@ -1,7 +1,13 @@
 .myBtn {
   padding: 5px 15px;
+  margin: 0 2px;
   font-size: 14px;
   background: transparent;
   border: 1px solid thistle;
   cursor: pointer;
+}
+
+.myBtn__current {
+  font-weight: bold;
+  border: 2px solid thistle;
 }

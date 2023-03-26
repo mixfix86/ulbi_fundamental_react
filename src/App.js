@@ -87,13 +87,14 @@ export const App = () => {
       >
         <div className='page__wrapper'>
           {pagesArray.map((p, i) => (
-            <span
-              onClick={() => setPage(p)}
-              className={page === p ? 'page page__current' : 'page'}
-              key={i}
-            >
-              {p}
-            </span>
+            <div style={{ marginTop: '10px' }}>
+              <MyButton
+                onClick={() => setPage(p)}
+                active={page === p ? 'active' : ''}
+              >
+                {p}
+              </MyButton>
+            </div>
           ))}
         </div>
       </div>
