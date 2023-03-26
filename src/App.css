@@ -38,16 +38,3 @@ h1 {
   display: flex;
   justify-content: center;
 }
-
-.page {
-  display: block;
-  padding: 10px;
-  margin: 0 2px ;
-  border: 1px solid thistle;
-  cursor: pointer;
-}
-
-.page__current {
-  border: 2px solid thistle;
-  font-weight: bold;
-}

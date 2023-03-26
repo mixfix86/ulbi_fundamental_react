@@ -82,21 +82,16 @@ export const App = () => {
           title='Список постов'
         />
       )}
-      <div
-        style={{ margin: '30px 0', display: 'flex', justifyContent: 'center' }}
-      >
-        <div className='page__wrapper'>
-          {pagesArray.map((p, i) => (
-            <div style={{ marginTop: '10px' }}>
-              <MyButton
-                onClick={() => setPage(p)}
-                active={page === p ? 'active' : ''}
-              >
-                {p}
-              </MyButton>
-            </div>
-          ))}
-        </div>
+
+      <div className='page__wrapper'>
+        {pagesArray.map((p, i) => (
+          <MyButton
+            onClick={() => setPage(p)}
+            active={page === p ? 'active' : ''}
+          >
+            {p}
+          </MyButton>
+        ))}
       </div>
     </div>
   );
