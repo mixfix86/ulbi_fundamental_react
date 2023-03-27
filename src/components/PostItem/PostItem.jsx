@@ -9,7 +9,7 @@ export const PostItem = ({ post, number, remove }) => {
     <div className={styles.post}>
       <div className={styles.post__content}>
         <strong>
-          {number}. {title}
+          {post.id}. {title}
         </strong>
         <div>{body}</div>
       </div>
