@@ -8,6 +8,7 @@ export const Pagination = ({ totalPages, page, changePage }) => {
     <div className='page__wrapper'>
       {pagesArray.map((p, i) => (
         <MyButton
+          key={i}
           onClick={() => changePage(p)}
           active={page === p ? 'active' : ''}
         >

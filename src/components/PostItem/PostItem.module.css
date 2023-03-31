@@ -6,3 +6,7 @@
     margin-top: 15px;
     border: 1px solid thistle;
 }
+
+.post__btns {
+    display: flex;
+}
